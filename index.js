@@ -74,18 +74,18 @@ function cumleKur(birinci, ikinci="", ucuncu="", dorduncu="", besinci=""){
 }
 
 /* (Oto test yok) cumleKur fonksiyonuna yalnızca 1 parametre göndererek "Hello World!" stringini elde edin, sonucu konsolde gözlemleyin */
-
+console.log(cumleKur("Hello World!"));
 
 
 
 /* (Oto test yok) cumleKur fonksiyonuna yalnızca 2 parametre göndererek "Hello World!" stringini elde edin, sonucu konsolde gözlemleyin */
-
+console.log(cumleKur("Hello", " World!"));
 
 
 
 /* (Oto test var) cumleKur fonksiyonuna 5 parametre göndererek "Ben iyi bir yazılımcı olacağım!" stringini elde edin, sonucu `bircumle` değişkenine atayın ve konsolde gözlemleyin */
-var bircumle;
-
+var bircumle = cumleKur("Ben ", "iyi ", "bir ", "yazılımcı ", "olacağım!");
+console.log(bircumle);
 /* kodlar buraya */
 
 
@@ -96,7 +96,7 @@ var bircumle;
 		cumlelereDonustur fonksiyonuna aşağıdaki yönergeleri uygulayın.
 			1. `cumleler` adındaki dizi fonksiyonun BİRİNCİ parametresi olarak alınacak.
 			2. Kelime aralarındaki ayraç(seperator) olarak kullanılmak üzere bir string değişkeni fonksiyonun İKİNCİ parametresi olarak alınacak. Ayraç parametresine "," değerini ön tanımlı yapmanız beklenmektedir.
-			3. Dizinin içindeki her dizi elemanı 1 cümle oluşturacak şekilde uc uca eklenecek, kelimelerin aralarına 3. parametrede girilen ayraç yerleştirilecek;
+			3. Dizinin içindeki her dizi elemanı 1 cümle oluşturacak şekilde uc uca eklenecek, kelimelerin aralarına 2. parametrede girilen ayraç yerleştirilecek;
 				NOT: cumlelereDonustur(cumleler, " ") fonksiyonu çağırıldığında şu dizinin oluşturacağı cümle: ["Annem","ekmek","almak","için","gitti."] => "Annem ekmek almak için gitti." şeklinde olmalıdır. 
 				💡 İPUCU: Bu çalışmada cümleleri kolay oluşturmak için .map ve .join metodunu bir arada kullanmanız gerekmektedir. 
 			4. Oluşturulan her cümle yeni bir dizi oluşturulup o dizinin içine aktarılacak. 
@@ -104,10 +104,15 @@ var bircumle;
 	*/
 	
 
-function cumlelereDonustur(/* kodlar buraya */ ){
+function cumlelereDonustur(dizi, ayrac = ","){
+	let yeniDizi = dizi.map((item)=>{
+		return item.join(ayrac);
+
+	})
+	return yeniDizi;
 	/* kodlar buraya */
 }
-
+console.log(cumlelereDonustur(cumleler, " "));
 
 
 /* GÖREV 2:
@@ -120,10 +125,13 @@ function cumlelereDonustur(/* kodlar buraya */ ){
 			6. Oluşturulan paragraf döndürülecek
 	*/
 	
-function paragrafOlustur(/* kodlar buraya */ ){
+function paragrafOlustur(dizi, cb_cumlekur, cb_cumleleredonustur){
+	let yeniDizi = cb_cumleleredonustur(dizi, " ");
+	let paragraf = cb_cumlekur(yeniDizi[1], yeniDizi[3], yeniDizi[5], yeniDizi[7], yeniDizi[9]);
+	return paragraf;
 	/* kodlar buraya */ 
 }
-
+console.log(paragrafOlustur(cumleler,cumleKur,cumlelereDonustur));
 
 /* 	GÖREV 3:
 		Yukarıda isimleri sebzeler ve meyveler olan 2 dizi bulunmaktadır. Bu dizileri kullanarak aşağıdaki görevleri tamamlayın.
@@ -131,7 +139,9 @@ function paragrafOlustur(/* kodlar buraya */ ){
  */
 //3a çözümü
 /* kodlar buraya */
-
+meyveler.pop();
+meyveler.shift();
+console.log(meyveler);
 
 
 
@@ -141,6 +151,9 @@ function paragrafOlustur(/* kodlar buraya */ ){
 */
 //3b çözümü
 /* kodlar buraya */
+sebzeler.unshift("🐇");
+sebzeler.push("🦔");
+console.log(sebzeler);
 
 
 
@@ -154,7 +167,8 @@ function paragrafOlustur(/* kodlar buraya */ ){
 	//3c çözümü
 /* kodlar buraya */
 
-var manav;
+var manav = meyveler.concat(sebzeler);
+console.log(manav);
 
 
 
@@ -169,8 +183,20 @@ var manav;
 				yani hem :d hem de :D sembolleri 😁'a dönüşmelidir. bunun için (.toUpperCase ve .toLowerCase metotlarından istediğinizi kullanabilirsiniz.)
 			4. elde edilen string döndürülecek
  */
+let metin = "Ben iyi bir yazılımcıyım.";
 
-function emojileriDonustur(/* kodlar buraya */){
+//metin = metin.replace("iyi", "süper");
+let yeniMetin = metin.replaceAll("iyi", "süper");
+console.log(metin);
+console.log(yeniMetin);
+
+function emojileriDonustur(mesaj, object){
+	for(let key in object){
+		mesaj = mesaj.replaceAll(key.toUpperCase(),object[key])
+		mesaj = mesaj.replaceAll(key.toLowerCase(),object[key])
+
+	}
+	return mesaj;
 /* kodlar buraya */
 
 }
